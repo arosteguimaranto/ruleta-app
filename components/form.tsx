@@ -1,7 +1,12 @@
 import React from 'react'
 
+// URL de la API y clave de autorización de Supabase
+const apiUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+
 export default function Form() {
-  
+// Endpoint de la tabla que deseas consultar
+// Hacer la solicitud fetch
   const { data, error } = await supabase
   .from('Preguntas')
   .insert([
