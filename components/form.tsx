@@ -1,19 +1,45 @@
 import React from 'react'
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient(apiUrl, supabaseKey)
 
 // URL de la API y clave de autorización de Supabase
 const apiUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
-export default function Form() {
+export default async function  Form() {
 // Endpoint de la tabla que deseas consultar
+const endpoint = '/Preguntas';
+
 // Hacer la solicitud fetch
-  const { data, error } = await supabase
+fetch(apiUrl + endpoint, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'apikey': supabaseKey
+  }
+})
+.then(response =>{
+  if(!response.ok){
+    throw new Error('No encontrado');
+  }
+  return response.json();
+})
+.then(data =>{
+  console.log('Data from supabase:' , data);
+})
+.catch(err =>{
+console.error('Ocurrio un problema', err);
+});
+
+
+ { /*const { data, error } = await supabase
   .from('Preguntas')
   .insert([
     { some_column: 'someValue' },
     { some_column: 'otherValue' },
   ])
   .select()
+}
 
   return (
     <div>
